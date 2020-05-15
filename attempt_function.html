@@ -1,0 +1,103 @@
+<!DOCTYPE>
+<html>
+<head>
+</head>
+<body>
+<p>Initial unsorted arrays</p>
+<p id="unsorted_arrays"></p>
+
+<p>Result of sorting arrays</p>
+<p id="sorted_arrays"></p>
+
+<p>Result</p>
+<p id="result"></p>
+<script>
+attempt([720, 360, 240], [360, 'any'], [720, 360]);
+
+function attempt(available, allowed, preferred){
+
+var values_for_any = [240, 360, 720, 1080];
+document.getElementById("unsorted_arrays").innerHTML = "available: " + available + "<br>allowed: " + allowed + "<br>preferred: " + preferred;
+
+
+var available_array = sort(available);
+
+for(let n=0;n<=preferred.length;n++){
+	if(preferred[n] == 'any'){ 
+	if (preferred[n] != values_for_any[0]){
+		preferred[n] = values_for_any[0];
+		} else {
+			preferred[n] = values_for_any[1];
+		}	
+	}
+}
+
+for(let m=0;m<=allowed.length;m++){
+	if(allowed[m] == 'any'){ 
+	if (allowed[m] != values_for_any[0]){
+		allowed[m] = values_for_any[0];
+		} else {
+			allowed[m] = values_for_any[1];
+		}	
+	}	
+}
+
+
+var allowed_array = sort(allowed);
+var preferred_array = sort(preferred);
+var resulting_array = [];
+console.log(resulting_array.length);
+/*
+var include_all = true;
+for(let i=0;i<=preferred_array.length;i++){
+
+}*/
+
+
+
+
+
+for(let i=0;i<=available_array.length;i++){
+	for(let j=0;j<=allowed_array.length;j++){
+		for(let k=0;k<=preferred_array.length;k++){
+	if(available_array[i]==allowed_array[j] && available_array[i]!=preferred_array[k] && allowed_array[j]!=preferred_array[k]){
+	resulting_array.push(available_array[i]);
+	}
+	}
+	
+	removeDuplicates(resulting_array);
+	
+		
+		
+		if(resulting_array.length>2){
+			resulting_array = resulting_array.slice(0,2);
+		}
+		
+	
+		
+
+
+document.getElementById("sorted_arrays").innerHTML = "available: " + available_array + "<br>allowed: " + allowed_array + "<br>preferred: " + preferred_array;
+document.getElementById("result").innerHTML = "result: " + resulting_array;
+}
+}
+}
+
+function sort(array){
+array.sort(function(a, b){return a-b});
+return array;
+}
+
+function removeDuplicates(array){
+		for(let i=0;i<=array.length;i++){
+			for(let j=i+1;j<=array.length;j++){
+				if(array[i]==array[j]){
+					array.pop(array[j]);
+				}
+			}
+		}
+	}
+	
+</script>
+</body>
+</html>
